@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="billingApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script>
+	angular.module('billingApp', []).controller('BillingController', ['$scope', function($scope) {
+		$scope.billing = {
+			payee: {
+				name: null,
+			},
+			runners: [
+				{ name: 'Titipat' }
+			]
+		};
+
+		$scope.addRunner = function() {
+			$scope.billing.runners.push({});
+		};
+
+		$scope.removeRunner = function(index) {
+			$scope.billing.runners.splice(index, 1);
+		};
+	}]);
+	</script>
+</head>
+<body ng-controller="BillingController">
+	<div class="container">
+		<pre>{{ billing }}</pre>
+
+		<form action="make-payment" method="POST">
+			<div class="form-group">
+				<a href="" class="btn btn-primary" ng-click="addRunner()">Add runner</a>
+			</div>
+
+			<div class="" ng-repeat="runner in billing.runners">
+				<div class="form-inline form-group">
+					<input type="text" class="form-control" ng-model="runner.name" name="runners[{{ $index }}][name]">
+					<a href="" class="btn btn-danger" ng-click="removeRunner($index)">Remove</a>
+				</div>
+			</div>
+
+			<input type="submit" class="btn btn-primary">	
+		</form>
+
+		
+	</div>
+</body>
+</html>
